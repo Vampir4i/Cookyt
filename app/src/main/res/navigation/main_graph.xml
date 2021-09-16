@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/lastVideosFragment">
+
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.cookyt.view.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" />
+    <fragment
+        android:id="@+id/lastVideosFragment"
+        android:name="com.example.cookyt.view.LastVideosFragment"
+        android:label="fragment_last_videos"
+        tools:layout="@layout/fragment_last_videos" />
+</navigation>
