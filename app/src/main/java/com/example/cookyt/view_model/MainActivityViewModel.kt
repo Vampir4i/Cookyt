@@ -16,6 +16,8 @@ class MainActivityViewModel: ViewModel() {
     var action = MutableLiveData(T_LAST_VIDEOS)
     var categories = MutableLiveData(listOf<Category>())
     var recipes = MutableLiveData<List<Recipe>>()
+    var recipe = MutableLiveData<Recipe>()
+    var searchRecipes = MutableLiveData<List<Recipe>>()
 
     fun getCategories(idCategory: String) {
         MainRepository.getCategories(idCategory, {
@@ -31,6 +33,20 @@ class MainActivityViewModel: ViewModel() {
         }, {
 
         })
+    }
+
+    fun getRecipe(recipeId: String) {
+        MainRepository.getRecipe(recipeId, {
+            recipe.value = it
+        }, {
+
+        })
+    }
+
+    fun searchRecipe(text: String) {
+        MainRepository.searchRecipes(text, {
+            searchRecipes.value = it
+        }, {})
     }
 
 }

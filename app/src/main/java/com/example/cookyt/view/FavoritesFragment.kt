@@ -1,6 +1,7 @@
 package com.example.cookyt.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +33,6 @@ class FavoritesFragment : Fragment() {
         binding.rvFavorite.layoutManager = LinearLayoutManager(this.requireContext())
         binding.rvFavorite.adapter = adapter
 
-        getFavorites()
         return binding.root
     }
 
@@ -45,5 +45,10 @@ class FavoritesFragment : Fragment() {
                 adapter.updateValues(list)
             }
         }.start()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getFavorites()
     }
 }

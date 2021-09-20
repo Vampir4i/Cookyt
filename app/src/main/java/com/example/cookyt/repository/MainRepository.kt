@@ -45,7 +45,54 @@ object MainRepository {
                 call: Call<List<Recipe>>,
                 response: Response<List<Recipe>>
             ) {
-                App.makeLog("$idCategory ${response.body()?.size} ${response.code()}")
+                if(response.code() == 200) {
+                    success(response.body() ?: listOf())
+                } else {
+                    failure()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Recipe>>, t: Throwable) {
+                failure()
+            }
+
+        })
+    }
+
+    fun getRecipe(
+        idRecipe: String,
+        success: (Recipe) -> Unit,
+        failure: () -> Unit
+    ) {
+        RetrofitClient.client.getRecipe(idRecipe).enqueue(object: Callback<Recipe> {
+            override fun onResponse(
+                call: Call<Recipe>,
+                response: Response<Recipe>
+            ) {
+                if(response.code() == 200) {
+                    success(response.body() ?: Recipe())
+                } else {
+                    failure()
+                }
+            }
+
+            override fun onFailure(call: Call<Recipe>, t: Throwable) {
+                failure()
+            }
+
+        })
+    }
+
+    fun searchRecipes(
+        text: String,
+        success: (List<Recipe>) -> Unit,
+        failure: () -> Unit
+    ) {
+        RetrofitClient.client.findRecipes(text).enqueue(object: Callback<List<Recipe>> {
+            override fun onResponse(
+                call: Call<List<Recipe>>,
+                response: Response<List<Recipe>>
+            ) {
                 if(response.code() == 200) {
                     success(response.body() ?: listOf())
                 } else {

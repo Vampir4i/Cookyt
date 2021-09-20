@@ -9,6 +9,7 @@ class Recipe(
     var title: String? = null,
     var picture: String? = null,
     var preview: String? = null,
+    var description: String? = null,
     @SerializedName("video_id")
     var videoId: String? = null,
     @SerializedName("channel_id")
