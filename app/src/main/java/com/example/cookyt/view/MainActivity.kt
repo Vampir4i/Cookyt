@@ -1,5 +1,6 @@
 package com.example.cookyt.view
 
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.cookyt.App
 import com.example.cookyt.ClickListener
 import com.example.cookyt.R
 import com.example.cookyt.RecyclerTouchListener
@@ -43,6 +45,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         vm.action.observe(this, { actionHandler(it) })
+        binding.clTitle.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
+        }
 
         supportFragmentManager.beginTransaction()
             .add(R.id.fl_main, MainContentFragment())
@@ -52,6 +58,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvDrawerItems.layoutManager = LinearLayoutManager(this)
         binding.rvDrawerItems.setHasFixedSize(true)
 
+        App.loadPhoto(R.drawable.top_drawable, binding.drawerImage)
         binding.ivGamb.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -62,14 +69,11 @@ class MainActivity : AppCompatActivity() {
                 when(position) {
                     0 -> {
                         vm.action.value = vm.T_LAST_VIDEOS
-                        Log.d("myLog", "ITEM $position")
                     }
                     1 -> {
-                        Log.d("myLog", "ITEM $position")
                         vm.action.value = vm.T_CATEGORY
                     }
                     2 -> {
-                        Log.d("myLog", "ITEM $position")
                         vm.action.value = vm.T_FAVORITES
                     }
                 }

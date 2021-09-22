@@ -88,6 +88,10 @@ object MainRepository {
         success: (List<Recipe>) -> Unit,
         failure: () -> Unit
     ) {
+        if(text.isEmpty()) {
+            success(listOf())
+            return
+        }
         RetrofitClient.client.findRecipes(text).enqueue(object: Callback<List<Recipe>> {
             override fun onResponse(
                 call: Call<List<Recipe>>,
