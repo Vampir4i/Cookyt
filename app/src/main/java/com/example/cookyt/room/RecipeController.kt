@@ -14,8 +14,7 @@ object RecipeController {
     }
 
     fun changeFavorite(recipe: RecipeRoom): Boolean {
-        Log.d("myLog", "RecipeID ${recipe.id} ${recipe.title}")
-
+        App.makeLog("FAVORITE ${recipe.title}")
         val isFav = checkIsFavorite(recipe)
         if(isFav) recipeDao.delete(recipe)
         else recipeDao.insert(recipe)

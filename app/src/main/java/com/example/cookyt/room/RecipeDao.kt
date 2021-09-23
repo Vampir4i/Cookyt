@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.cookyt.model.Recipe
+import com.example.cookyt.model.RecipeHistory
 import com.example.cookyt.model.RecipeRoom
 
 @Dao
@@ -21,4 +22,20 @@ interface RecipeDao {
 
     @Delete
     fun delete(recipe: RecipeRoom)
+}
+
+@Dao
+interface HistoryDao {
+
+    @Query("SELECT * FROM RecipeHistory")
+    fun getAll(): List<RecipeHistory>
+
+    @Query("SELECT * FROM RecipeHistory WHERE id = :id")
+    fun getById(id: String): RecipeHistory?
+
+    @Insert
+    fun insert(recipe: RecipeHistory)
+
+    @Delete
+    fun delete(recipe: RecipeHistory)
 }

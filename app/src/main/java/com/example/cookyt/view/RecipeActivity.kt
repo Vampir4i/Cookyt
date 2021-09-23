@@ -14,6 +14,7 @@ import com.example.cookyt.App
 import com.example.cookyt.R
 import com.example.cookyt.databinding.ActivityRecipeBinding
 import com.example.cookyt.model.RecipeRoom
+import com.example.cookyt.room.HistoryController
 import com.example.cookyt.room.RecipeController
 import com.example.cookyt.view_model.MainActivityViewModel
 
@@ -36,7 +37,6 @@ class RecipeActivity : AppCompatActivity() {
         val recipeId = intent.getStringExtra("recipe_id") ?: ""
 
         vm.recipe.observe(this, {
-            Log.d("myLog", "RecipeID ${it.id} ${it.title}")
             binding.title = it.title
             binding.body = HtmlCompat.fromHtml(it.description ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT).toString()
             binding.category = it.sCategory
@@ -44,13 +44,12 @@ class RecipeActivity : AppCompatActivity() {
 
             Thread() {
                 val isFav = RecipeController.checkIsFavorite(it.getRecipeRoom())
+                HistoryController.changeHistory(it.getRecipeHistory())
                 runOnUiThread { binding.isFavorite = isFav }
             }.start()
         })
 
         binding.btnFavorite.setOnClickListener {
-            Log.d("myLog", "CLICK")
-
             Thread() {
                 val isFav = RecipeController.changeFavorite(vm.recipe.value?.getRecipeRoom()
                     ?: RecipeRoom("", "", ""))

@@ -23,11 +23,24 @@ class Recipe(
     fun getRecipeRoom(): RecipeRoom {
         return RecipeRoom(id ?: "", title ?: "", picture ?: "")
     }
+    fun getRecipeHistory(): RecipeHistory {
+        return RecipeHistory(id ?: "", title ?: "", picture ?: "")
+    }
 }
 
 
 @Entity
 class RecipeRoom(
+    @PrimaryKey
+    var id: String,
+    var title: String,
+    var picture: String
+) {
+    fun getRecipe(): Recipe = Recipe(id, title, picture)
+}
+
+@Entity
+class RecipeHistory(
     @PrimaryKey
     var id: String,
     var title: String,

@@ -30,7 +30,10 @@ class FavoritesFragment : Fragment() {
 
         adapter = RecipesListAdapter(listOf(), this.requireContext(), "", activity as MainActivity)
         adapter.updateFavoriteSet { getFavorites() }
-        binding.rvFavorite.layoutManager = LinearLayoutManager(this.requireContext())
+        val layoutManager = LinearLayoutManager(this.requireContext())
+        layoutManager.reverseLayout = true
+        layoutManager.stackFromEnd = true
+        binding.rvFavorite.layoutManager = layoutManager
         binding.rvFavorite.adapter = adapter
 
         return binding.root

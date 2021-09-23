@@ -17,7 +17,9 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         context = this
-        database = Room.databaseBuilder(this, AppDatabase::class.java, "database").build()
+        database = Room.databaseBuilder(this, AppDatabase::class.java, "database")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 
     companion object {
