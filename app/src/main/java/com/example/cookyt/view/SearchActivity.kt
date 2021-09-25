@@ -29,7 +29,7 @@ class SearchActivity : AppCompatActivity() {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
 //            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            statusBarColor = resources.getColor(android.R.color.white)
+            statusBarColor = resources.getColor(R.color.sand_color)
         }
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)

@@ -17,6 +17,7 @@ import com.example.cookyt.model.RecipeRoom
 import com.example.cookyt.room.HistoryController
 import com.example.cookyt.room.RecipeController
 import com.example.cookyt.view_model.MainActivityViewModel
+import com.google.android.gms.ads.AdRequest
 
 class RecipeActivity : AppCompatActivity() {
     lateinit var binding: ActivityRecipeBinding
@@ -36,24 +37,56 @@ class RecipeActivity : AppCompatActivity() {
         vm = ViewModelProvider(this)[MainActivityViewModel::class.java]
         val recipeId = intent.getStringExtra("recipe_id") ?: ""
 
-        vm.recipe.observe(this, {
+        vm.recipe.observe(this) {
             binding.title = it.title
-            binding.body = HtmlCompat.fromHtml(it.description ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT).toString()
+            binding.body =
+                HtmlCompat.fromHtml(it.description ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)
+                    .toString()
             binding.category = it.sCategory
             App.loadPhoto(it.picture, binding.videoImg)
 
             Thread() {
                 val isFav = RecipeController.checkIsFavorite(it.getRecipeRoom())
                 HistoryController.changeHistory(it.getRecipeHistory())
-                runOnUiThread { binding.isFavorite = isFav }
+                runOnUiThread {
+                    binding.isFavorite = isFav
+                    if (isFav)
+                        binding.btnFavorite.setColorFilter(
+                            resources.getColor(
+                                R.color.sand_color
+                            ), android.graphics.PorterDuff.Mode.SRC_IN
+                        );
+                    else
+                        binding.btnFavorite.setColorFilter(
+                            resources.getColor(
+                                R.color.light_grey
+                            ), android.graphics.PorterDuff.Mode.SRC_IN
+                        );
+                }
             }.start()
-        })
+        }
 
         binding.btnFavorite.setOnClickListener {
             Thread() {
-                val isFav = RecipeController.changeFavorite(vm.recipe.value?.getRecipeRoom()
-                    ?: RecipeRoom("", "", ""))
-                runOnUiThread { binding.isFavorite = isFav }
+                val isFav = RecipeController.changeFavorite(
+                    vm.recipe.value?.getRecipeRoom()
+                        ?: RecipeRoom("", "", "")
+                )
+                runOnUiThread {
+                    binding.isFavorite = isFav
+                    if (isFav)
+                        binding.btnFavorite.setColorFilter(
+                            resources.getColor(
+                                R.color.sand_color
+                            ), android.graphics.PorterDuff.Mode.SRC_IN
+                        );
+                    else
+                        binding.btnFavorite.setColorFilter(
+                            resources.getColor(
+                                R.color.light_grey
+                            ), android.graphics.PorterDuff.Mode.SRC_IN
+                        );
+                }
             }.start()
         }
 
@@ -82,11 +115,14 @@ class RecipeActivity : AppCompatActivity() {
         }
 
         checkConnection(recipeId)
+
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 //        vm.getRecipe(recipeId)
     }
 
     fun checkConnection(recipeId: String) {
-        if(App.isOnline()){
+        if (App.isOnline()) {
             binding.layoutBadInternet.visibility = View.GONE
             binding.recipeScreen.visibility = View.VISIBLE
             vm.getRecipe(recipeId)

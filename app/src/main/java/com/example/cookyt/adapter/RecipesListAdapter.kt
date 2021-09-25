@@ -40,7 +40,7 @@ class RecipesListAdapter(
         Thread {
             val isFav = RecipeController.checkIsFavorite(values[position].getRecipeRoom())
             activity.runOnUiThread {
-                isFavorite.value = if(isFav) "Удалите из избранного" else "Добавьте в избранное"
+                isFavorite.value = if(isFav) "Удалить из избранного" else "Добавить в избранное"
             }
         }.start()
         App.loadPhoto(values[position].picture, holder.img)

@@ -26,7 +26,7 @@ class NavigationRVAdapter(private var items: List<NavigationItemModel>, private 
 
     override fun onBindViewHolder(holder: NavigationItemViewHolder, position: Int) {
         if(position == currentPos)
-            holder.itemView.setBackgroundColor(context.resources.getColor(R.color.light_grey))
+            holder.itemView.setBackgroundColor(context.resources.getColor(R.color.sand_color))
         else holder.itemView.setBackgroundColor(context.resources.getColor(android.R.color.transparent))
 
         holder.title.text = items[position].title

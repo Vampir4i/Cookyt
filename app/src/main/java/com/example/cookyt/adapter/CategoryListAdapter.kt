@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cookyt.R
 import com.example.cookyt.model.Category
@@ -23,7 +24,7 @@ class CategoryListAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tvTitle?.text = values[position].title
-        holder.tvTitle?.setOnClickListener {
+        holder.clCategory?.setOnClickListener {
             val intent = Intent(context, RecipesActivity::class.java)
             intent.putExtra("category_id", values[position].id)
             intent.putExtra("category", values[position].title)
@@ -42,9 +43,10 @@ class CategoryListAdapter(
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var tvTitle: TextView? = null
-
+        var clCategory: ConstraintLayout? = null
         init {
             tvTitle = itemView.findViewById(R.id.tv_category_title)
+            clCategory = itemView.findViewById(R.id.cl_category)
         }
     }
 }

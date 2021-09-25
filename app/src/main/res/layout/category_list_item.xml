@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="15dp"
+    android:layout_marginVertical="@dimen/main_padding"
+    android:id="@+id/cl_category"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
@@ -10,7 +11,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/bakery"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="@dimen/main_padding"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -20,7 +21,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat_regular"
         android:textSize="18sp"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="@dimen/main_padding"
         app:layout_constraintTop_toTopOf="@id/iv_bakery"
         app:layout_constraintBottom_toBottomOf="@id/iv_bakery"
         app:layout_constraintLeft_toRightOf="@id/iv_bakery"/>
