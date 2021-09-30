@@ -1,7 +1,5 @@
 package com.example.cookyt.repository
 
-import android.util.Log
-import com.example.cookyt.App
 import com.example.cookyt.model.Category
 import com.example.cookyt.model.Recipe
 import com.example.cookyt.retrofit.CategoryListRequest
@@ -37,10 +35,11 @@ object MainRepository {
 
     fun getRecipes(
         idCategory: String,
+        page: String = "1",
         success: (List<Recipe>) -> Unit,
         failure: () -> Unit
     ) {
-        RetrofitClient.client.getListRecipes(idCategory).enqueue(object: Callback<List<Recipe>> {
+        RetrofitClient.client.getListRecipes(idCategory, page).enqueue(object: Callback<List<Recipe>> {
             override fun onResponse(
                 call: Call<List<Recipe>>,
                 response: Response<List<Recipe>>
@@ -93,6 +92,31 @@ object MainRepository {
             return
         }
         RetrofitClient.client.findRecipes(text).enqueue(object: Callback<List<Recipe>> {
+            override fun onResponse(
+                call: Call<List<Recipe>>,
+                response: Response<List<Recipe>>
+            ) {
+                if(response.code() == 200) {
+                    success(response.body() ?: listOf())
+                } else {
+                    failure()
+                }
+            }
+
+            override fun onFailure(call: Call<List<Recipe>>, t: Throwable) {
+                failure()
+            }
+
+        })
+    }
+
+    fun getLastRecipes(
+        idCategory: String,
+        page: String = "1",
+        success: (List<Recipe>) -> Unit,
+        failure: () -> Unit
+    ) {
+        RetrofitClient.client.getLastRecipes(idCategory, page).enqueue(object: Callback<List<Recipe>> {
             override fun onResponse(
                 call: Call<List<Recipe>>,
                 response: Response<List<Recipe>>

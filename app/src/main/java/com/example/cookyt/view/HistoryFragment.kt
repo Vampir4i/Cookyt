@@ -9,22 +9,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cookyt.R
 import com.example.cookyt.adapter.RecipesListAdapter
-import com.example.cookyt.databinding.FragmentLastVideosBinding
+import com.example.cookyt.databinding.FragmentHistoryBinding
 import com.example.cookyt.model.Recipe
 import com.example.cookyt.room.HistoryController
-import com.example.cookyt.room.RecipeController
 
-class LastVideosFragment : Fragment() {
-    lateinit var binding: FragmentLastVideosBinding
+class HistoryFragment : Fragment() {
+    lateinit var binding: FragmentHistoryBinding
     lateinit var adapter: RecipesListAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_last_videos, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_history, container, false)
 
         adapter = RecipesListAdapter(listOf(), this.requireContext(), "", activity as MainActivity)
-        adapter.updateFavoriteSet { getHistoryList() }
         val layoutManager = LinearLayoutManager(this.requireContext())
         layoutManager.reverseLayout = true
         layoutManager.stackFromEnd = true

@@ -2,6 +2,7 @@ package com.example.cookyt.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.*
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -27,8 +28,10 @@ class RecipesListAdapter(
 
     val ADD_FAVORITE = 1
     val SHARE = 2
+    var CURRENT_PAGE = 1
 
     var updateFavorite: (() -> Unit)? = null
+    var loadNextPage: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.recipe_list_item, parent, false)
@@ -36,6 +39,8 @@ class RecipesListAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if(position == values.size - 1) loadNextPage?.invoke(++CURRENT_PAGE)
+//        if(position == 15 * CURRENT_PAGE) loadNextPage?.invoke(++CURRENT_PAGE)
         val isFavorite = MutableLiveData("")
         Thread {
             val isFav = RecipeController.checkIsFavorite(values[position].getRecipeRoom())
@@ -95,6 +100,10 @@ class RecipesListAdapter(
     fun updateValues(values: List<Recipe>) {
         this.values = values
         notifyDataSetChanged()
+    }
+
+    fun loadNextPage(f: (Int) -> Unit) {
+        this.loadNextPage = f
     }
 
     fun updateFavoriteSet(updateFavorite: () -> Unit) {

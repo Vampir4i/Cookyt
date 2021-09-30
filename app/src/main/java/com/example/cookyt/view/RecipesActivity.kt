@@ -40,6 +40,8 @@ class RecipesActivity : AppCompatActivity() {
         val adapter = RecipesListAdapter(listOf(), this, category, this)
         binding.rcRecipes.adapter = adapter
 
+        adapter.loadNextPage { checkConnection(categoryId, it.toString()) }
+
         vm.recipes.observe(this, {
             adapter.updateValues(it)
             binding.listRefresh.isRefreshing = false
@@ -50,17 +52,21 @@ class RecipesActivity : AppCompatActivity() {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
         }
-        binding.listRefresh.setOnRefreshListener { checkConnection(categoryId) }
+        binding.listRefresh.setOnRefreshListener {
+            adapter.CURRENT_PAGE = 1
+            vm.recipes.value = mutableListOf()
+            checkConnection(categoryId)
+        }
         findViewById<TextView>(R.id.tv_try_again).setOnClickListener { checkConnection(categoryId) }
 
         checkConnection(categoryId)
     }
 
-    fun checkConnection(categoryId: String) {
+    fun checkConnection(categoryId: String, page: String = "1") {
         if(App.isOnline()){
             binding.layoutBadInternet.visibility = View.GONE
             binding.rcRecipes.visibility = View.VISIBLE
-            vm.getRecipes(categoryId)
+            vm.getRecipes(categoryId, page)
         } else {
             binding.rcRecipes.visibility = View.GONE
             binding.layoutBadInternet.visibility = View.VISIBLE

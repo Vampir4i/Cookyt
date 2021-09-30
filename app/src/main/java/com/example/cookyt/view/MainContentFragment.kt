@@ -9,14 +9,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.DataBindingUtil
-import com.example.cookyt.App
 import com.example.cookyt.R
 import com.example.cookyt.adapter.TabAdapter
 import com.example.cookyt.databinding.FragmentMainContentBinding
 import com.example.cookyt.view_model.MainActivityViewModel
 import com.google.android.gms.ads.*
 import com.google.android.material.tabs.TabLayout
-import org.w3c.dom.Text
 
 class MainContentFragment : Fragment() {
     lateinit var binding: FragmentMainContentBinding
@@ -49,7 +47,7 @@ class MainContentFragment : Fragment() {
         vm = (activity as MainActivity).vm
 
         val tabAdapter = TabAdapter(childFragmentManager)
-        tabAdapter.addFragment(LastVideosFragment(), "ПОСЛЕДНИЕ ВИДЕО")
+        tabAdapter.addFragment(LastRecipesFragment(), "ПОСЛЕДНИЕ ВИДЕО")
         tabAdapter.addFragment(CategoryFragment(), "КАТЕГОРИИ")
 
         binding.viewPager.adapter = tabAdapter

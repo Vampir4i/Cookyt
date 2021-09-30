@@ -69,5 +69,4 @@ dependencies {
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:10.0.5'
 
     implementation 'com.google.android.gms:play-services-ads:20.4.0'
-
 }

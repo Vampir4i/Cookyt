@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         vm = ViewModelProvider(this)[MainActivityViewModel::class.java]
+        binding.subTitle = ""
 
         window.apply {
             clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
@@ -82,15 +83,19 @@ class MainActivity : AppCompatActivity() {
                 when(position) {
                     0 -> {
                         vm.action.value = vm.T_LAST_VIDEOS
+                        binding.subTitle = ""
                     }
                     1 -> {
                         vm.action.value = vm.T_CATEGORY
+                        binding.subTitle = ""
                     }
                     2 -> {
                         vm.action.value = vm.T_FAVORITES
+                        binding.subTitle = "Избранное"
                     }
                     3 -> {
-
+                        vm.action.value = vm.T_HISTORY
+                        binding.subTitle = "История"
                     }
                 }
                 updateAdapter(position)
@@ -168,6 +173,13 @@ class MainActivity : AppCompatActivity() {
                 supportFragmentManager.popBackStack()
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fl_main, FavoritesFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+            vm.T_HISTORY -> {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_main, HistoryFragment())
                     .addToBackStack(null)
                     .commit()
             }

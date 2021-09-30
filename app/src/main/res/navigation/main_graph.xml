@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_category" />
     <fragment
         android:id="@+id/lastVideosFragment"
-        android:name="com.example.cookyt.view.LastVideosFragment"
+        android:name="com.example.cookyt.view.HistoryFragment"
         android:label="fragment_last_videos"
-        tools:layout="@layout/fragment_last_videos" />
+        tools:layout="@layout/fragment_history" />
 </navigation>
