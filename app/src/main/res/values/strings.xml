@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cookyt</string>
+    <string name="app_name">Cookyt Выпечка</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="GOOGLE_API_KEY">AIzaSyDOePApjtr5Z5i4awT7WYvP3M7RKyV3IGQ</string>

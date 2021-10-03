@@ -14,12 +14,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/sand_color"
-            android:minHeight="60dp"
             app:layout_constraintTop_toTopOf="parent"
             app:tabIndicatorColor="@color/dark_orange"
             app:tabIndicatorHeight="3dp"
             app:tabRippleColor="@null"
             app:tabGravity="fill"
+            android:paddingBottom="0dp"
             app:tabMode="fixed" />
 
         <androidx.viewpager.widget.ViewPager

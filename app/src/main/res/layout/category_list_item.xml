@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="@dimen/main_padding"
+    android:layout_marginVertical="@dimen/half_main_padding"
     android:id="@+id/cl_category"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
