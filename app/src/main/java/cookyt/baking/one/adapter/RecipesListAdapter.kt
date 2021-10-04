@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
+import cookyt.baking.one.App
 import cookyt.baking.one.R
 import cookyt.baking.one.model.Recipe
 import cookyt.baking.one.room.RecipeController
@@ -46,7 +47,7 @@ class RecipesListAdapter(
                 isFavorite.value = if(isFav) "Удалить из избранного" else "Добавить в избранное"
             }
         }.start()
-        cookyt.baking.one.App.loadPhoto(values[position].picture, holder.img)
+        App.loadPhoto(values[position].picture, holder.img)
         holder.title?.text = values[position].title
         holder.category?.text = category
         holder.clRecipe?.setOnClickListener {

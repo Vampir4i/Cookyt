@@ -8,17 +8,24 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.room.Room
-import cookyt.baking.one .room.AppDatabase
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.squareup.picasso.Picasso
+import cookyt.baking.one.room.AppDatabase
+import java.util.*
 
 class App: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        cookyt.baking.one.App.Companion.context = this
-        cookyt.baking.one.App.Companion.database = Room.databaseBuilder(this, AppDatabase::class.java, "database")
+        context = this
+        database = Room.databaseBuilder(this, AppDatabase::class.java, "database")
             .fallbackToDestructiveMigration()
             .build()
+
+        val testDeviceIds = Arrays.asList("CC80C9F5AFFE4DF6EFCA975A20DF723F")
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+        MobileAds.setRequestConfiguration(configuration)
     }
 
     companion object {

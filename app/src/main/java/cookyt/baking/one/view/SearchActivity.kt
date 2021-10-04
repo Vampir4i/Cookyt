@@ -2,6 +2,7 @@ package cookyt.baking.one.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
@@ -9,6 +10,8 @@ import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.*
+import cookyt.baking.one.App
 import cookyt.baking.one.R
 import cookyt.baking.one.adapter.RecipesListAdapter
 import cookyt.baking.one.databinding.ActivitySearchBinding
@@ -19,6 +22,24 @@ class SearchActivity : AppCompatActivity() {
     lateinit var binding: ActivitySearchBinding
 
     var searchText = ""
+    private lateinit var adView: AdView
+
+    private val adSize: AdSize
+        get() {
+            val display = windowManager?.defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display?.getMetrics(outMetrics)
+
+            val density = outMetrics.density
+
+            var adWidthPixels = binding.adContainer.width.toFloat()
+            if (adWidthPixels == 0f) {
+                adWidthPixels = outMetrics.widthPixels.toFloat()
+            }
+
+            val adWidth = (adWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +72,7 @@ class SearchActivity : AppCompatActivity() {
         binding.btnBack.setOnClickListener { finish() }
         binding.listRefresh.setOnRefreshListener { checkConnection(searchText) }
         findViewById<TextView>(R.id.tv_try_again).setOnClickListener { checkConnection(searchText) }
+        loadBanner()
     }
 
     fun checkConnection(text: String) {
@@ -63,5 +85,46 @@ class SearchActivity : AppCompatActivity() {
             binding.layoutBadInternet.visibility = View.VISIBLE
             binding.listRefresh.isRefreshing = false
         }
+    }
+
+    private fun loadBanner() {
+        adView = AdView(this)
+        binding.adContainer.addView(adView)
+        adView.adUnitId = AD_UNIT_ID
+        adView.adSize = adSize
+        val adRequest = AdRequest
+            .Builder()
+            .build()
+
+        adRequest.isTestDevice(this)
+
+        adView.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+                App.makeLog("Code to be executed when an ad finishes loading")
+            }
+
+            override fun onAdFailedToLoad(adError : LoadAdError) {
+                App.makeLog("Code to be executed when an ad request fails ${adError.message}")
+            }
+
+            override fun onAdOpened() {
+                App.makeLog("Code to be executed when an ad opens an overlay that covers the screen")
+            }
+
+            override fun onAdClicked() {
+                App.makeLog("Code to be executed when the user clicks on an ad")
+            }
+
+            override fun onAdClosed() {
+                App.makeLog("Code to be executed when the user is about to return to the app after tapping on an ad")
+            }
+        }
+
+        adView.loadAd(adRequest)
+    }
+
+    companion object {
+        private val AD_UNIT_ID = "ca-app-pub-9006479240979656/2665160049"
+//        private val AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
     }
 }

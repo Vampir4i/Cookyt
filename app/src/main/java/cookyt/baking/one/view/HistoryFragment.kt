@@ -1,12 +1,15 @@
 package cookyt.baking.one.view
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.ads.*
+import cookyt.baking.one.App
 import cookyt.baking.one.R
 import cookyt.baking.one.adapter.RecipesListAdapter
 import cookyt.baking.one.databinding.FragmentHistoryBinding
@@ -16,6 +19,25 @@ import cookyt.baking.one.room.HistoryController
 class HistoryFragment : Fragment() {
     lateinit var binding: FragmentHistoryBinding
     lateinit var adapter: RecipesListAdapter
+    private lateinit var adView: AdView
+
+    private val adSize: AdSize
+        get() {
+            val display = activity?.windowManager?.defaultDisplay
+            val outMetrics = DisplayMetrics()
+            display?.getMetrics(outMetrics)
+
+            val density = outMetrics.density
+
+            var adWidthPixels = binding.adContainer.width.toFloat()
+            if (adWidthPixels == 0f) {
+                adWidthPixels = outMetrics.widthPixels.toFloat()
+            }
+
+            val adWidth = (adWidthPixels / density).toInt()
+            return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this.requireContext(), adWidth)
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,10 +66,52 @@ class HistoryFragment : Fragment() {
                 binding.listRefresh.isRefreshing = false
             }
         }.start()
+        loadBanner()
     }
 
     override fun onResume() {
         super.onResume()
         getHistoryList()
+    }
+
+    private fun loadBanner() {
+        adView = AdView(this.requireContext())
+        binding.adContainer.addView(adView)
+        adView.adUnitId = AD_UNIT_ID
+        adView.adSize = adSize
+        val adRequest = AdRequest
+            .Builder()
+            .build()
+
+        adRequest.isTestDevice(this.requireContext())
+
+        adView.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+                App.makeLog("Code to be executed when an ad finishes loading")
+            }
+
+            override fun onAdFailedToLoad(adError : LoadAdError) {
+                App.makeLog("Code to be executed when an ad request fails ${adError.message}")
+            }
+
+            override fun onAdOpened() {
+                App.makeLog("Code to be executed when an ad opens an overlay that covers the screen")
+            }
+
+            override fun onAdClicked() {
+                App.makeLog("Code to be executed when the user clicks on an ad")
+            }
+
+            override fun onAdClosed() {
+                App.makeLog("Code to be executed when the user is about to return to the app after tapping on an ad")
+            }
+        }
+
+        adView.loadAd(adRequest)
+    }
+
+    companion object {
+        private val AD_UNIT_ID = "ca-app-pub-9006479240979656/2665160049"
+//        private val AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
     }
 }

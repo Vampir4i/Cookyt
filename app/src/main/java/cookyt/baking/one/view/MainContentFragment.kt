@@ -15,6 +15,7 @@ import cookyt.baking.one.databinding.FragmentMainContentBinding
 import cookyt.baking.one.view_model.MainActivityViewModel
 import com.google.android.gms.ads.*
 import com.google.android.material.tabs.TabLayout
+import cookyt.baking.one.App
 
 class MainContentFragment : Fragment() {
     lateinit var binding: FragmentMainContentBinding
@@ -120,25 +121,58 @@ class MainContentFragment : Fragment() {
 //            }
 //        }
 
-//        loadBanner()
+        loadBanner()
 
         return binding.root
     }
 
-//    private fun loadBanner() {
-//        adView = AdView(this.requireContext())
-//        binding.adContainer.addView(adView)
-//        adView.adUnitId = AD_UNIT_ID
-//        adView.adSize = adSize
-//        val adRequest = AdRequest
-//            .Builder()
-//            .build()
-//        adView.loadAd(adRequest)
-//    }
+    private fun loadBanner() {
+        adView = AdView(this.requireContext())
+        binding.adContainer.addView(adView)
+        adView.adUnitId = AD_UNIT_ID
+        adView.adSize = adSize
+        val adRequest = AdRequest
+            .Builder()
+            .build()
+
+        adRequest.isTestDevice(this.requireContext())
+
+        adView.adListener = object: AdListener() {
+            override fun onAdLoaded() {
+                App.makeLog("Code to be executed when an ad finishes loading")
+                // Code to be executed when an ad finishes loading.
+            }
+
+            override fun onAdFailedToLoad(adError : LoadAdError) {
+                App.makeLog("Code to be executed when an ad request fails ${adError.message}")
+                // Code to be executed when an ad request fails.
+            }
+
+            override fun onAdOpened() {
+                App.makeLog("Code to be executed when an ad opens an overlay that covers the screen")
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            override fun onAdClicked() {
+                App.makeLog("Code to be executed when the user clicks on an ad")
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            override fun onAdClosed() {
+                App.makeLog("Code to be executed when the user is about to return to the app after tapping on an ad")
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        }
+
+        adView.loadAd(adRequest)
+    }
 
     companion object {
         // This is an ad unit ID for a test ad. Replace with your own banner ad unit ID.
-        private val AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
+        private val AD_UNIT_ID = "ca-app-pub-9006479240979656/2665160049"
+//        private val AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111"
     }
 
 }

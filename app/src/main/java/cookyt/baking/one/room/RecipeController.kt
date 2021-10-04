@@ -1,11 +1,12 @@
 package cookyt.baking.one.room
 
 import android.util.Log
+import cookyt.baking.one.App
 import cookyt.baking.one.model.RecipeRoom
 
 object RecipeController {
 
-    val recipeDao = cookyt.baking.one.App.database.recipeDao()
+    val recipeDao = App.database.recipeDao()
 
     fun checkIsFavorite(recipe: RecipeRoom): Boolean {
         val r = recipeDao.getById(recipe.id)
@@ -13,7 +14,7 @@ object RecipeController {
     }
 
     fun changeFavorite(recipe: RecipeRoom): Boolean {
-        cookyt.baking.one.App.makeLog("FAVORITE ${recipe.title}")
+        App.makeLog("FAVORITE ${recipe.title}")
         val isFav = checkIsFavorite(recipe)
         if(isFav) recipeDao.delete(recipe)
         else recipeDao.insert(recipe)

@@ -9,16 +9,30 @@ import android.widget.TextView
 import androidx.core.text.HtmlCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
+import com.google.android.gms.ads.nativead.NativeAd
+import com.google.android.gms.ads.nativead.NativeAdOptions
+import cookyt.baking.one.App
 import cookyt.baking.one.R
 import cookyt.baking.one.databinding.ActivityRecipeBinding
 import cookyt.baking.one.model.RecipeRoom
 import cookyt.baking.one.room.HistoryController
 import cookyt.baking.one.room.RecipeController
 import cookyt.baking.one.view_model.MainActivityViewModel
+import com.google.android.ads.nativetemplates.TemplateView
+
+import com.google.android.ads.nativetemplates.NativeTemplateStyle
+
+
+
 
 class RecipeActivity : AppCompatActivity() {
     lateinit var binding: ActivityRecipeBinding
     lateinit var vm: MainActivityViewModel
+    private var mInterstitialAd: InterstitialAd? = null
+    lateinit var adLoader: AdLoader
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +54,7 @@ class RecipeActivity : AppCompatActivity() {
                 HtmlCompat.fromHtml(it.description ?: "", HtmlCompat.FROM_HTML_MODE_COMPACT)
                     .toString()
             binding.category = it.sCategory
-            cookyt.baking.one.App.loadPhoto(it.picture, binding.videoImg)
+            App.loadPhoto(it.picture, binding.videoImg)
 
             Thread() {
                 val isFav = RecipeController.checkIsFavorite(it.getRecipeRoom())
@@ -116,10 +130,82 @@ class RecipeActivity : AppCompatActivity() {
 //        val adRequest = AdRequest.Builder().build()
 //        binding.adView.loadAd(adRequest)
 //        vm.getRecipe(recipeId)
+        loadInterstitial()
+        loadNativeAd()
+    }
+
+    fun loadInterstitial() {
+        var adRequest = AdRequest.Builder().build()
+
+        InterstitialAd.load(this,"ca-app-pub-9006479240979656/3693981313", adRequest, object : InterstitialAdLoadCallback() {
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                App.makeLog(adError.message)
+                mInterstitialAd = null
+            }
+
+            override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                App.makeLog("Ad was loaded.")
+                mInterstitialAd = interstitialAd
+
+                mInterstitialAd?.fullScreenContentCallback = object: FullScreenContentCallback() {
+                    override fun onAdDismissedFullScreenContent() {
+                        App.makeLog("Ad was dismissed.")
+                    }
+
+                    override fun onAdFailedToShowFullScreenContent(adError: AdError?) {
+                        App.makeLog("Ad failed to show.")
+                    }
+
+                    override fun onAdShowedFullScreenContent() {
+                        App.makeLog("Ad showed fullscreen content.")
+                        mInterstitialAd = null
+                    }
+                }
+
+                if (mInterstitialAd != null) {
+                    mInterstitialAd?.show(this@RecipeActivity)
+                } else {
+                    App.makeLog("The interstitial ad wasn't ready yet.")
+                }
+            }
+        })
+    }
+
+    fun loadNativeAd() {
+        MobileAds.initialize(this)
+        adLoader = AdLoader.Builder(this, "ca-app-pub-9006479240979656/5941210018")
+            .forNativeAd { ad : NativeAd ->
+
+                val styles = NativeTemplateStyle.Builder()
+//                        .withMainBackgroundColor(background)
+                        .build()
+                binding.myTemplate.setStyles(styles)
+                binding.myTemplate.setNativeAd(ad)
+                // Show the ad.
+                if (adLoader.isLoading) {
+                    // The AdLoader is still loading ads.
+                    // Expect more adLoaded or onAdFailedToLoad callbacks.
+                } else {
+                    // The AdLoader has finished loading ads.
+                }
+            }
+            .withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    // Handle the failure by logging, altering the UI, and so on.
+                }
+            })
+            .withNativeAdOptions(
+                NativeAdOptions.Builder()
+                // Methods in the NativeAdOptions.Builder class can be
+                // used here to specify individual options settings.
+                .build())
+            .build()
+
+        adLoader.loadAd(AdRequest.Builder().build())
     }
 
     fun checkConnection(recipeId: String) {
-        if (cookyt.baking.one.App.isOnline()) {
+        if (App.isOnline()) {
             binding.layoutBadInternet.visibility = View.GONE
             binding.recipeScreen.visibility = View.VISIBLE
             vm.getRecipe(recipeId)
