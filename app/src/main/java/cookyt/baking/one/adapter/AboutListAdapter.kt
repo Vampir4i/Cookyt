@@ -1,7 +1,9 @@
 package cookyt.baking.one.adapter
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +31,18 @@ class AboutListAdapter(
         holder.tvSub?.text = values[position].sub
         holder.icon?.setImageResource(values[position].icon)
         holder.divider?.visibility = if(values[position].showDivider) View.VISIBLE else View.INVISIBLE
+
+        if(position == values.size - 2) {
+            holder.clAbout?.setOnClickListener {
+                val packageName = "One+Pro+Studio"
+
+                try {
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://developer?id=$packageName")))
+                } catch (e: ActivityNotFoundException) {
+                    context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=$packageName")))
+                }
+            }
+        }
 
         if(position == values.size - 1) {
             holder.clAbout?.setOnClickListener {

@@ -140,6 +140,7 @@
             app:tint="@color/light_grey"
             android:background="@android:color/transparent"
             android:src="@drawable/baseline_share_24"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
 

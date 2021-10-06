@@ -1,6 +1,8 @@
 package cookyt.baking.one.view
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -33,9 +35,9 @@ class MainActivity : AppCompatActivity() {
         NavigationItemModel(R.drawable.ic_baseline_history_24, "Недавние")
     )
     private var items1 = listOf(
-        NavigationItemModel(R.drawable.ic_baseline_rate_review_24, "Оцени нас"),
+//        NavigationItemModel(R.drawable.ic_baseline_rate_review_24, "Оцени нас"),
         NavigationItemModel(R.drawable.ic_baseline_more_24, "Больше"),
-        NavigationItemModel(R.drawable.baseline_share_24, "Поделиться"),
+//        NavigationItemModel(R.drawable.baseline_share_24, "Поделиться"),
         NavigationItemModel(R.drawable.ic_baseline_info_24, "О нас"),
         NavigationItemModel(R.drawable.ic_baseline_lock_24, "Terms & Policies")
     )
@@ -108,20 +110,21 @@ class MainActivity : AppCompatActivity() {
         binding.rvOtherItems.addOnItemTouchListener(RecyclerTouchListener(this, object: ClickListener {
             override fun onClick(view: View, position: Int) {
                 when(position) {
+//                    0 -> {
+//                        vm.action.value = vm.T_RATE
+//                    }
                     0 -> {
-                        vm.action.value = vm.T_RATE
-                    }
-                    1 -> {
                         vm.action.value = vm.T_MORE
+                        binding.subTitle = ""
                     }
-                    2 -> {
-                        vm.action.value = vm.T_SHARE
-                    }
-                    3 -> {
+//                    2 -> {
+//                        vm.action.value = vm.T_SHARE
+//                    }
+                    1 -> {
                         vm.action.value = vm.T_ABOUT
                         binding.subTitle = "О нас"
                     }
-                    4 -> {
+                    2 -> {
                         vm.action.value = vm.T_POLICIES
                         binding.subTitle = ""
                     }
@@ -197,6 +200,15 @@ class MainActivity : AppCompatActivity() {
                     .replace(R.id.fl_main, AboutFragment())
                     .addToBackStack(null)
                     .commit()
+            }
+            vm.T_MORE -> {
+                val packageName = "One+Pro+Studio"
+
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://developer?id=$packageName")))
+                } catch (e: ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/developer?id=$packageName")))
+                }
             }
         }
     }

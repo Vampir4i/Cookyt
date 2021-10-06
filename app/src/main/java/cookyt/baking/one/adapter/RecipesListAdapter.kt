@@ -58,7 +58,7 @@ class RecipesListAdapter(
         holder.btnMenu?.setOnClickListener {
             val popup = PopupMenu(context, it, Gravity.RIGHT)
             popup.menu.add(Menu.NONE, ADD_FAVORITE, Menu.NONE, isFavorite.value)
-            popup.menu.add(Menu.NONE, SHARE, Menu.NONE, "Поделиться")
+//            popup.menu.add(Menu.NONE, SHARE, Menu.NONE, "Поделиться")
 
             popup.setOnMenuItemClickListener {
                 when(it.itemId) {
@@ -71,19 +71,19 @@ class RecipesListAdapter(
                             }
                         }.start()
                     }
-                    SHARE -> {
-                        val sendIntent: Intent = Intent().apply {
-                            action = Intent.ACTION_SEND
-                            putExtra(Intent.EXTRA_TEXT,
-                                "${values[position].title}\n\n" +
-                                "Я хотел бы поделиться этим с вами. Здесь вы можете загрузить это приложение из PlayStore\n\n" +
-                                        "{ссылка}"
-                            )
-                            type = "text/plain"
-                        }
-                        val shareIntent = Intent.createChooser(sendIntent, null)
-                        context.startActivity(shareIntent)
-                    }
+//                    SHARE -> {
+//                        val sendIntent: Intent = Intent().apply {
+//                            action = Intent.ACTION_SEND
+//                            putExtra(Intent.EXTRA_TEXT,
+//                                "${values[position].title}\n\n" +
+//                                "Я хотел бы поделиться этим с вами. Здесь вы можете загрузить это приложение из PlayStore\n\n" +
+//                                        "{ссылка}"
+//                            )
+//                            type = "text/plain"
+//                        }
+//                        val shareIntent = Intent.createChooser(sendIntent, null)
+//                        context.startActivity(shareIntent)
+//                    }
                 }
                 true
             }

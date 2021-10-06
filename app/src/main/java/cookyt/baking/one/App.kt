@@ -23,9 +23,9 @@ class App: Application() {
             .fallbackToDestructiveMigration()
             .build()
 
-        val testDeviceIds = Arrays.asList("CC80C9F5AFFE4DF6EFCA975A20DF723F")
-        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
-        MobileAds.setRequestConfiguration(configuration)
+//        val testDeviceIds = Arrays.asList("CC80C9F5AFFE4DF6EFCA975A20DF723F")
+//        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+//        MobileAds.setRequestConfiguration(configuration)
     }
 
     companion object {

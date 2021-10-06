@@ -58,7 +58,7 @@ class AboutFragment : Fragment() {
         AboutModel("Текущая версия", "1.0", R.drawable.ic_baseline_info_24, true),
         AboutModel("Email", "cookytads@gmail.com", R.drawable.ic_baseline_mail_24, true),
         AboutModel("Copyright", "Copyright 2021", R.drawable.ic_baseline_copyright_24, false),
-        AboutModel("Оцени нас", "Дайте оценку и отзыв", R.drawable.ic_baseline_rate_review_24, false),
+//        AboutModel("Оцени нас", "Дайте оценку и отзыв", R.drawable.ic_baseline_rate_review_24, false),
         AboutModel("Больше", "Больше приложений", R.drawable.ic_baseline_more_24, false),
         AboutModel("Terms & Policies", "Terms & Policies of Cookyt", R.drawable.ic_baseline_lock_24, false)
     )
