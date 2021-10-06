@@ -34,10 +34,10 @@ class App: Application() {
         lateinit var database: AppDatabase
 
         fun makeToast(msg: String) {
-            Toast.makeText(cookyt.baking.one.App.Companion.context, msg, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
         }
         fun makeLog(msg: String) {
-            Log.d(cookyt.baking.one.App.Companion.TAG, msg)
+            Log.d(TAG, msg)
         }
         fun loadPhoto(src: String?, iv: ImageView?) {
             if(src.isNullOrEmpty()) return
@@ -51,7 +51,7 @@ class App: Application() {
         }
         fun isOnline(): Boolean {
             val connectivityManager =
-                cookyt.baking.one.App.Companion.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+                context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             if (connectivityManager != null) {
                 val capabilities =
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {

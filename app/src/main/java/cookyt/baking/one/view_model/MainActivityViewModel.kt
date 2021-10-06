@@ -11,6 +11,12 @@ class MainActivityViewModel: ViewModel() {
     val T_CATEGORY = 1
     val T_FAVORITES = 2
     val T_HISTORY = 3
+
+    val T_RATE = 4
+    val T_MORE = 5
+    val T_SHARE = 6
+    val T_ABOUT = 7
+    val T_POLICIES = 8
     val T_BACK = 10
 
     var action = MutableLiveData(T_LAST_VIDEOS)

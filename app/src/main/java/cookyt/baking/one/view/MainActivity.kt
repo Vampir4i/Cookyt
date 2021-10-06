@@ -18,6 +18,7 @@ import cookyt.baking.one.databinding.ActivityMainBinding
 import cookyt.baking.one.model.NavigationItemModel
 import cookyt.baking.one.view_model.MainActivityViewModel
 import com.google.android.gms.ads.MobileAds
+import cookyt.baking.one.App
 
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: NavigationRVAdapter
@@ -35,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         NavigationItemModel(R.drawable.ic_baseline_rate_review_24, "Оцени нас"),
         NavigationItemModel(R.drawable.ic_baseline_more_24, "Больше"),
         NavigationItemModel(R.drawable.baseline_share_24, "Поделиться"),
-        NavigationItemModel(R.drawable.ic_baseline_info_24, "О нас")
+        NavigationItemModel(R.drawable.ic_baseline_info_24, "О нас"),
+        NavigationItemModel(R.drawable.ic_baseline_lock_24, "Terms & Policies")
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvOtherItems.layoutManager = LinearLayoutManager(this)
         binding.rvOtherItems.setHasFixedSize(true)
 
-        cookyt.baking.one.App.loadPhoto(R.drawable.top_drawable, binding.drawerImage)
+        App.loadPhoto(R.drawable.top_drawable, binding.drawerImage)
         binding.ivGamb.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
@@ -107,16 +109,21 @@ class MainActivity : AppCompatActivity() {
             override fun onClick(view: View, position: Int) {
                 when(position) {
                     0 -> {
-//                        vm.action.value = vm.T_LAST_VIDEOS
+                        vm.action.value = vm.T_RATE
                     }
                     1 -> {
-//                        vm.action.value = vm.T_CATEGORY
+                        vm.action.value = vm.T_MORE
                     }
                     2 -> {
-//                        vm.action.value = vm.T_FAVORITES
+                        vm.action.value = vm.T_SHARE
                     }
                     3 -> {
-
+                        vm.action.value = vm.T_ABOUT
+                        binding.subTitle = "О нас"
+                    }
+                    4 -> {
+                        vm.action.value = vm.T_POLICIES
+                        binding.subTitle = ""
                     }
                 }
                 updateAdapter(position + 4)
@@ -180,7 +187,17 @@ class MainActivity : AppCompatActivity() {
                     .addToBackStack(null)
                     .commit()
             }
-
+            vm.T_POLICIES -> {
+                val intent = Intent(this, PoliciesActivity::class.java)
+                startActivity(intent)
+            }
+            vm.T_ABOUT -> {
+                supportFragmentManager.popBackStack()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fl_main, AboutFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
         }
     }
 
