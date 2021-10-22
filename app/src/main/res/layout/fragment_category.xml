@@ -9,6 +9,7 @@
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/list_refresh"
+            android:layout_marginVertical="@dimen/half_main_padding"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

@@ -2,9 +2,10 @@
     <string name="app_name">Cookyt Салаты</string>
     <string name="GOOGLE_API_KEY">AIzaSyDOePApjtr5Z5i4awT7WYvP3M7RKyV3IGQ</string>
 
-    <string name="BANNER_ID">ca-app-pub-9006479240979656/2665160049</string>
-    <string name="INTERSTITIAL_ID">ca-app-pub-9006479240979656/3693981313</string>
-    <string name="NATIVE_ID">ca-app-pub-9006479240979656/5941210018</string>
+    <string name="BANNER_ID">ca-app-pub-9006479240979656/8195927552</string>
+    <string name="INTERSTITIAL_ID">ca-app-pub-9006479240979656/6938686208</string>
+    <string name="NATIVE_ID">ca-app-pub-9006479240979656/2943600873</string>
+    <string name="ADMOB_ID">ca-app-pub-9006479240979656~6008747910</string>
 
     <string name="CATEGORY_ID">11</string>
     <!--Labels-->

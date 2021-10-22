@@ -2,11 +2,13 @@ package cookyt.salads.one.adapter
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.view.*
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.PopupMenu
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.MutableLiveData
@@ -37,14 +39,16 @@ class RecipesListAdapter(
         return ViewHolder(itemView)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(position == values.size - 1) loadNextPage?.invoke(++CURRENT_PAGE)
 //        if(position == 15 * CURRENT_PAGE) loadNextPage?.invoke(++CURRENT_PAGE)
-        val isFavorite = MutableLiveData("")
+        val isFavorite = MutableLiveData<Boolean>()
         Thread {
             val isFav = RecipeController.checkIsFavorite(values[position].getRecipeRoom())
             activity.runOnUiThread {
-                isFavorite.value = if(isFav) "Удалить из избранного" else "Добавить в избранное"
+                isFavorite.value = isFav
+//                isFavorite.value = if(isFav) "Удалить из избранного" else "Добавить в избранное"
             }
         }.start()
         App.loadPhoto(values[position].picture, holder.img)
@@ -58,22 +62,40 @@ class RecipesListAdapter(
             intent.putExtra("recipe_id", values[position].id)
             context.startActivity(intent)
         }
+        isFavorite.observe(activity, {
+            holder.btnMenu?.setImageResource(
+                if(isFavorite.value == true) R.drawable.baseline_favorite_24 else R.drawable.baseline_favorite_border_24)
+            holder.btnMenu?.setColorFilter(
+                App.context.getColor(
+                    if(isFavorite.value == true) R.color.main_light_color else R.color.light_grey
+                ), android.graphics.PorterDuff.Mode.SRC_IN
+            );
+        })
         holder.btnMenu?.setOnClickListener {
-            val popup = PopupMenu(context, it, Gravity.RIGHT)
-            popup.menu.add(Menu.NONE, ADD_FAVORITE, Menu.NONE, isFavorite.value)
-//            popup.menu.add(Menu.NONE, SHARE, Menu.NONE, "Поделиться")
-
-            popup.setOnMenuItemClickListener {
-                when(it.itemId) {
-                    ADD_FAVORITE -> {
-                        Thread {
-                            RecipeController.changeFavorite(values[position].getRecipeRoom())
-                            activity.runOnUiThread {
-                                notifyDataSetChanged()
-                                updateFavorite?.invoke()
-                            }
-                        }.start()
-                    }
+            Thread {
+                RecipeController.changeFavorite(values[position].getRecipeRoom())
+                activity.runOnUiThread {
+                    notifyDataSetChanged()
+                    updateFavorite?.invoke()
+                }
+            }.start()
+        }
+//        holder.btnMenu?.setOnClickListener {
+//            val popup = PopupMenu(context, it, Gravity.RIGHT)
+//            popup.menu.add(Menu.NONE, ADD_FAVORITE, Menu.NONE, isFavorite.value)
+////            popup.menu.add(Menu.NONE, SHARE, Menu.NONE, "Поделиться")
+//
+//            popup.setOnMenuItemClickListener {
+//                when(it.itemId) {
+//                    ADD_FAVORITE -> {
+//                        Thread {
+//                            RecipeController.changeFavorite(values[position].getRecipeRoom())
+//                            activity.runOnUiThread {
+//                                notifyDataSetChanged()
+//                                updateFavorite?.invoke()
+//                            }
+//                        }.start()
+//                    }
 //                    SHARE -> {
 //                        val sendIntent: Intent = Intent().apply {
 //                            action = Intent.ACTION_SEND
@@ -87,12 +109,12 @@ class RecipesListAdapter(
 //                        val shareIntent = Intent.createChooser(sendIntent, null)
 //                        context.startActivity(shareIntent)
 //                    }
-                }
-                true
-            }
-
-            popup.show()
-        }
+//                }
+//                true
+//            }
+//
+//            popup.show()
+//        }
     }
 
     override fun getItemCount(): Int {
@@ -125,7 +147,7 @@ class RecipesListAdapter(
             title = itemView.findViewById(R.id.tv_recipe_title)
             category = itemView.findViewById(R.id.tv_category_title)
             channel = itemView.findViewById(R.id.tv_channel)
-            btnMenu = itemView.findViewById(R.id.btn_more)
+            btnMenu = itemView.findViewById(R.id.btn_favorite)
             clRecipe = itemView.findViewById(R.id.cl_recipe)
         }
     }

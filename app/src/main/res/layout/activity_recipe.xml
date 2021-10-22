@@ -104,7 +104,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/main_padding"
-                    android:layout_marginTop="@dimen/half_main_padding"
                     android:fontFamily="@font/montserrat_regular"
                     android:textColor="@color/light_grey"
                     android:text='@{channelName}'
@@ -151,7 +150,7 @@
                     android:id="@+id/rv_contiguous"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/main_padding"
+                    android:layout_marginTop="@dimen/half_main_padding"
                     app:layout_constraintTop_toBottomOf="@id/tv_contiguous" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -161,9 +160,9 @@
             android:id="@+id/btn_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:background="@drawable/round_template"
             android:src="@drawable/ic_baseline_arrow_back_24"
-            app:tint="@color/light_grey"
+            app:tint="@color/main_dark_color"
             android:layout_marginTop="@dimen/main_padding"
             android:layout_marginLeft="@dimen/main_padding"
             app:layout_constraintTop_toTopOf="parent"

@@ -10,7 +10,7 @@
         android:id="@+id/iv_bakery"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/bakery"
+        android:src="@drawable/placeholder_image"
         android:layout_marginLeft="@dimen/main_padding"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />

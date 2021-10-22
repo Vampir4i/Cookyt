@@ -34,8 +34,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-9006479240979656~2038474084" /> <!-- android:value="ca-app-pub-3940256099942544~3347511713" /> -->
-        <!-- android:value="ca-app-pub-6477337082080887~3188141907" -->
+            android:value="@string/ADMOB_ID" />
         <activity
             android:name="cookyt.salads.one.view.VideoActivity"
             android:exported="true"

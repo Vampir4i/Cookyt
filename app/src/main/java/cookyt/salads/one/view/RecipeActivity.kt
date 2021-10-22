@@ -73,13 +73,13 @@ class RecipeActivity : AppCompatActivity() {
                             resources.getColor(
                                 R.color.main_light_color
                             ), android.graphics.PorterDuff.Mode.SRC_IN
-                        );
+                        )
                     else
                         binding.btnFavorite.setColorFilter(
                             resources.getColor(
                                 R.color.light_grey
                             ), android.graphics.PorterDuff.Mode.SRC_IN
-                        );
+                        )
                 }
             }.start()
         }
