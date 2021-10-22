@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cookyt.baking.one">
+    package="cookyt.salads.one">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -12,7 +12,7 @@
     </queries>
 
     <application
-        android:name=".App"
+        android:name="cookyt.salads.one.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -20,10 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Cookyt">
         <activity
-            android:name=".view.PoliciesActivity"
+            android:name="cookyt.salads.one.view.PoliciesActivity"
             android:exported="true" />
         <activity
-            android:name=".view.SplashActivity"
+            android:name="cookyt.salads.one.view.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,20 +37,20 @@
             android:value="ca-app-pub-9006479240979656~2038474084" /> <!-- android:value="ca-app-pub-3940256099942544~3347511713" /> -->
         <!-- android:value="ca-app-pub-6477337082080887~3188141907" -->
         <activity
-            android:name=".view.VideoActivity"
+            android:name="cookyt.salads.one.view.VideoActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.SearchActivity"
+            android:name="cookyt.salads.one.view.SearchActivity"
             android:exported="true" />
         <activity
-            android:name=".view.RecipeActivity"
+            android:name="cookyt.salads.one.view.RecipeActivity"
             android:exported="true" />
         <activity
-            android:name=".view.RecipesActivity"
+            android:name="cookyt.salads.one.view.RecipesActivity"
             android:exported="true" />
         <activity
-            android:name=".view.MainActivity"
+            android:name="cookyt.salads.one.view.MainActivity"
             android:exported="true">
 
             <!-- <intent-filter> -->

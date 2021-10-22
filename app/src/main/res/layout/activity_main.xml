@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/half_main_padding"
                 android:background="@android:color/holo_green_light"
-                android:backgroundTint="@color/sand_color"
+                android:backgroundTint="@color/main_light_color"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,7 +56,7 @@
                         android:id="@+id/tv_title"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Рецепты в видео формате - Cookyt"
+                        android:text="@string/l_title_main"
                         android:ellipsize="end"
                         android:maxLines="1"
                         android:textSize="18sp"
@@ -139,7 +139,7 @@
                 android:id="@+id/drawer_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Другое"
+                android:text="@string/l_other"
                 android:textSize="16sp"
                 android:textColor="@color/light_grey"
                 android:layout_marginLeft="@dimen/main_padding"

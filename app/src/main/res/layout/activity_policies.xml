@@ -10,7 +10,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/sand_color"
+        android:background="@color/main_light_color"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_regular"
-            android:text="Terms &amp; Policies"
+            android:text="@string/l_terms"
             android:textColor="@color/dark_grey"
             android:textSize="18sp" />
 

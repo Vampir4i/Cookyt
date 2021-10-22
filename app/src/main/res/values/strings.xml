@@ -1,6 +1,41 @@
 <resources>
-    <string name="app_name">Cookyt Выпечка</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Cookyt Салаты</string>
     <string name="GOOGLE_API_KEY">AIzaSyDOePApjtr5Z5i4awT7WYvP3M7RKyV3IGQ</string>
+
+    <string name="BANNER_ID">ca-app-pub-9006479240979656/2665160049</string>
+    <string name="INTERSTITIAL_ID">ca-app-pub-9006479240979656/3693981313</string>
+    <string name="NATIVE_ID">ca-app-pub-9006479240979656/5941210018</string>
+
+    <string name="CATEGORY_ID">11</string>
+    <!--Labels-->
+    <string name="l_name_app">Имя приложения</string>
+    <string name="l_current_version">Текущая версия</string>
+    <string name="l_email">Email</string>
+    <string name="l_copyright">Copyright</string>
+    <string name="l_more">Больше</string>
+    <string name="l_terms">Terms &amp; Policies</string>
+    <string name="l_other">Другое</string>
+    <string name="l_about_us">О нас</string>
+
+    <string name="l_title_main">Рецепты в видео формате - Cookyt</string>
+    <string name="l_title_search">Что хотите приготовить?</string>
+    <string name="l_new_video">Новые видео</string>
+    <string name="l_last_video">Последние видео</string>
+    <string name="l_category">Категории</string>
+    <string name="l_favorites">Избранное</string>
+    <string name="l_recent">Недавние</string>
+    <string name="l_history">История</string>
+    <string name="l_contiguous">Похожие рецепты</string>
+    <string name="l_oops">Упппссс!</string>
+    <string name="l_not_internet">Нет интернет соединения!</string>
+    <string name="l_try_again">ПОПРОБОВАТЬ ЕЩЕ РАЗ</string>
+
+    <!--Values-->
+    <string name="name_app">Cookyt Салаты</string>
+    <string name="current_version">1.0</string>
+    <string name="email">cookytads@gmail.com</string>
+    <string name="copyright">Copyright 2021</string>
+    <string name="more">Больше приложений</string>
+    <string name="terms">Terms &amp; Policies of Cookyt</string>
+    <string name="error_terms">Error: can\'t show terms.</string>
 </resources>

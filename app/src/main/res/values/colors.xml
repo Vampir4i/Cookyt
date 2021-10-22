@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="light_grey">#768296</color>
-    <color name="sand_color">#fdf0cd</color>
-    <color name="dark_orange">#d06530</color>
+    <color name="main_light_color">#d1fae4</color>
+    <color name="main_dark_color">#11b981</color>
     <color name="dark_grey">#393c42</color>
 </resources>

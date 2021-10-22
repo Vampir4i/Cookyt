@@ -18,6 +18,10 @@
         <variable
             name="category"
             type="String" />
+
+        <variable
+            name="channelName"
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -62,11 +66,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/main_padding"
                     android:layout_marginTop="@dimen/main_padding"
-                    android:background="@color/sand_color"
+                    android:background="@color/main_light_color"
                     android:fontFamily="@font/montserrat_regular"
                     android:padding="5dp"
                     android:text='@{category}'
-                    android:textColor="@color/dark_orange"
+                    android:textColor="@color/main_dark_color"
                     android:textSize="16sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/video_img" />
@@ -96,6 +100,19 @@
                     app:layout_constraintTop_toBottomOf="@id/category_label" />
 
                 <TextView
+                    android:id="@+id/tv_channel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/main_padding"
+                    android:layout_marginTop="@dimen/half_main_padding"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/light_grey"
+                    android:text='@{channelName}'
+                    android:textSize="15sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <TextView
                     android:id="@+id/tv_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,7 +123,7 @@
                     android:text='@{body}'
                     android:textSize="15sp"
                     android:lineSpacingExtra="10dp"
-                    app:layout_constraintTop_toBottomOf="@id/tv_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_channel" />
 
                 <com.google.android.ads.nativetemplates.TemplateView
                     android:id="@+id/my_template"
@@ -114,7 +131,28 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/main_padding"
+                    android:layout_marginHorizontal="@dimen/main_padding"
                     app:layout_constraintTop_toBottomOf="@id/tv_body"/>
+
+                <TextView
+                    android:id="@+id/tv_contiguous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/main_padding"
+                    android:layout_marginTop="@dimen/main_padding"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:textColor="@color/dark_grey"
+                    android:text='@string/l_contiguous'
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@id/my_template" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_contiguous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/main_padding"
+                    app:layout_constraintTop_toBottomOf="@id/tv_contiguous" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

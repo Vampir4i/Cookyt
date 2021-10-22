@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/holo_green_light"
-            android:backgroundTint="@color/sand_color"
+            android:backgroundTint="@color/main_light_color"
             android:padding="@dimen/half_main_padding"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -43,7 +43,7 @@
                     android:background="@null"
                     android:ellipsize="end"
                     android:fontFamily="@font/montserrat_regular"
-                    android:hint="Что хотите приготовить?"
+                    android:hint="@string/l_title_search"
                     android:maxLines="1"
                     android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
