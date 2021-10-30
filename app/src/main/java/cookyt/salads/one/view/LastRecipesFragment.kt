@@ -32,7 +32,6 @@ class LastRecipesFragment : Fragment() {
         adapter.loadNextPage { checkConnection(getString(R.string.CATEGORY_ID), it.toString()) }
 
         vm.lastRecipes.observe(this.requireActivity(), {
-            App.makeLog("SIZE ${it.size}")
             adapter.updateValues(it)
             binding.listRefresh.isRefreshing = false
         })

@@ -24,7 +24,7 @@ interface Endpoints {
 
     @GET("api-recipe/category/{id_category}/page/{page}")
     fun getLastRecipes(
-        @Path("id_category") idCategory: String = "3",
+        @Path("id_category") idCategory: String,
         @Path("page") page: String = "1"
     ): Call<List<Recipe>>
 }

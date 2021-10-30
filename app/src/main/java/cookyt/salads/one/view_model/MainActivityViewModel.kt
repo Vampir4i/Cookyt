@@ -2,6 +2,7 @@ package cookyt.salads.one.view_model
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import cookyt.salads.one.App
 import cookyt.salads.one.model.Category
 import cookyt.salads.one.model.Recipe
 import cookyt.salads.one.repository.MainRepository
@@ -25,6 +26,8 @@ class MainActivityViewModel: ViewModel() {
     var recipe = MutableLiveData<Recipe>()
     var searchRecipes = MutableLiveData<List<Recipe>>()
     var lastRecipes = MutableLiveData<MutableList<Recipe>>(mutableListOf())
+
+    var showInter = true
 
     fun getCategories(idCategory: String) {
         MainRepository.getCategories(idCategory, {
@@ -60,9 +63,11 @@ class MainActivityViewModel: ViewModel() {
 
     fun getLastRecipes(idCategory: String, page: String = "1") {
         MainRepository.getLastRecipes(idCategory, page, {
-            val l = lastRecipes.value
-            l?.addAll(it)
-            lastRecipes.value = l ?: mutableListOf()
+            if(it.isNotEmpty()) {
+                val l = lastRecipes.value
+                l?.addAll(it)
+                lastRecipes.value = l ?: mutableListOf()
+            }
         }, {
 
         })

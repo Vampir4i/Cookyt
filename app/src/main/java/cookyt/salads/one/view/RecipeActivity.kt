@@ -135,7 +135,13 @@ class RecipeActivity : AppCompatActivity() {
 //        val adRequest = AdRequest.Builder().build()
 //        binding.adView.loadAd(adRequest)
 //        vm.getRecipe(recipeId)
-        loadInterstitial()
+        if(vm.showInter) {
+            App.showInter = !App.showInter
+            if (App.showInter) {
+                loadInterstitial()
+                vm.showInter = false
+            } else vm.showInter = false
+        }
         loadNativeAd()
     }
 

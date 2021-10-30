@@ -23,15 +23,16 @@ class App: Application() {
             .fallbackToDestructiveMigration()
             .build()
 
-//        val testDeviceIds = Arrays.asList("CC80C9F5AFFE4DF6EFCA975A20DF723F")
-//        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
-//        MobileAds.setRequestConfiguration(configuration)
+        val testDeviceIds = Arrays.asList("CC80C9F5AFFE4DF6EFCA975A20DF723F")
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+        MobileAds.setRequestConfiguration(configuration)
     }
 
     companion object {
         val TAG = "myLog"
         lateinit var context: Context
         lateinit var database: AppDatabase
+        var showInter = false
 
         fun makeToast(msg: String) {
             Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()

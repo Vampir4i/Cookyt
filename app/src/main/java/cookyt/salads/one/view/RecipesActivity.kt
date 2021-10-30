@@ -63,7 +63,8 @@ class RecipesActivity : AppCompatActivity() {
         adapter.loadNextPage { checkConnection(categoryId, it.toString()) }
 
         vm.recipes.observe(this, {
-            adapter.updateValues(it)
+            if(adapter.values.size < it.size)
+                adapter.updateValues(it)
             binding.listRefresh.isRefreshing = false
         })
 

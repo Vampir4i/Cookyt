@@ -122,6 +122,8 @@ class RecipesListAdapter(
     }
 
     fun updateValues(values: List<Recipe>) {
+        App.makeLog("UPDATE ${values.size} ${this.values.size}")
+        values.forEach { App.makeLog(it.description ?: "") }
         this.values = values
         notifyDataSetChanged()
     }
