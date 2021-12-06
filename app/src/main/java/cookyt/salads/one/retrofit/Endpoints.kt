@@ -19,8 +19,11 @@ interface Endpoints {
     @GET("api-recipe/{id_recipe}/extended")
     fun getRecipe(@Path("id_recipe") idCategory: String): Call<Recipe>
 
-    @GET("api-recipe/v-11/search")
-    fun findRecipes(@Query("q") text: String): Call<List<Recipe>>
+    @GET("api-recipe/v-{category_id}/search")
+    fun findRecipes(
+        @Path("category_id") categoryId: String,
+        @Query("q") text: String
+    ): Call<List<Recipe>>
 
     @GET("api-recipe/category/{id_category}/page/{page}")
     fun getLastRecipes(

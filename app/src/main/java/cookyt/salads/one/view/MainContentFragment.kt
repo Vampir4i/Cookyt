@@ -65,7 +65,7 @@ class MainContentFragment : Fragment() {
                 .inflate(R.layout.custom_tab_layout, null) as ConstraintLayout
             when(i) {
                 0 -> {
-                    shape.findViewById<TextView>(R.id.tab_text).setTextColor(resources.getColor(R.color.main_dark_color))
+                    shape.findViewById<TextView>(R.id.tab_text).setTextColor(resources.getColor(R.color.tab_text_color_selected))
                     shape.findViewById<TextView>(R.id.tab_text).text = getString(R.string.l_last_video).uppercase()
                 }
                 1 -> shape.findViewById<TextView>(R.id.tab_text).text = getString(R.string.l_category).uppercase()
@@ -76,12 +76,12 @@ class MainContentFragment : Fragment() {
         binding.tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val shape = tab?.customView as ConstraintLayout
-                shape.findViewById<TextView>(R.id.tab_text).setTextColor(resources.getColor(R.color.main_dark_color))
+                shape.findViewById<TextView>(R.id.tab_text).setTextColor(resources.getColor(R.color.tab_text_color_selected))
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
                 val shape = tab?.customView as ConstraintLayout
-                shape.findViewById<TextView>(R.id.tab_text).setTextColor(resources.getColor(R.color.dark_grey))
+                shape.findViewById<TextView>(R.id.tab_text).setTextColor(resources.getColor(R.color.tab_text_color_unselected))
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {

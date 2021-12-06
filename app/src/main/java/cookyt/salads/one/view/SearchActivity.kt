@@ -79,7 +79,7 @@ class SearchActivity : AppCompatActivity() {
         if(App.isOnline()){
             binding.layoutBadInternet.visibility = View.GONE
             binding.rcRecipes.visibility = View.VISIBLE
-            vm.searchRecipe(text)
+            vm.searchRecipe(text, getString(R.string.CATEGORY_ID))
         } else {
             binding.rcRecipes.visibility = View.GONE
             binding.layoutBadInternet.visibility = View.VISIBLE

@@ -84,6 +84,7 @@ object MainRepository {
 
     fun searchRecipes(
         text: String,
+        categoryId: String,
         success: (List<Recipe>) -> Unit,
         failure: () -> Unit
     ) {
@@ -91,7 +92,7 @@ object MainRepository {
             success(listOf())
             return
         }
-        RetrofitClient.client.findRecipes(text).enqueue(object: Callback<List<Recipe>> {
+        RetrofitClient.client.findRecipes(categoryId, text).enqueue(object: Callback<List<Recipe>> {
             override fun onResponse(
                 call: Call<List<Recipe>>,
                 response: Response<List<Recipe>>

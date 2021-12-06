@@ -55,8 +55,8 @@ class MainActivityViewModel: ViewModel() {
         })
     }
 
-    fun searchRecipe(text: String) {
-        MainRepository.searchRecipes(text, {
+    fun searchRecipe(text: String, categoryId: String) {
+        MainRepository.searchRecipes(text, categoryId, {
             searchRecipes.value = it
         }, {})
     }
